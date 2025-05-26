@@ -1,0 +1,53 @@
+Migrações
+
+cd bin
+
+cake bake migration CreateUsers nome:string[180] cpf:string[14]:unique password:string[255] celular:string[15] dtNasc:date email:string[180]:unique ativo:string[1] created modified
+
+cake bake migration CreateAutenticacaos autenticacao:string[255] user_id:integer expiracao:date ativo:string[1] created modified
+
+cake bake migration CreateServicos tipo:string[120] ativo:string[1] created modified
+
+cake bake migration CreateFornecedors cnpj:string[18] nome:string[224] telefone:string[11] email:string[255] logradouro:string[180] numero:string[20] bairro:string[150] complemento:string[100] cidade:string[200] estado:string[2] cep:string[10] ativo:string[1] created modified user_id:integer servico_id:integer
+
+cake bake migration CreatePecas nome:string[180] valor:decimal[10,2] garantia:integer[11] notaFiscal:integer[11] ativo:string[1] created modified fornecedor_id:integer
+
+cake bake migration CreateFabricantes nome:string[180] abreviado:string[18] ativo:string[1] created modified
+
+cake bake migration CreateTipos tipo:string[100] ativo:string[1] created modified
+
+cake bake migration CreateVeiculos modelo:string[160] ano:integer[4] placa:string[8] ativo:string[1] created modified tipo_id:integer fabricante_id:integer
+
+cake bake migration CreateManutencaos data:date valor:decimal[10,2] ativo:string[1] created modified veiculo_id:integer fornecedor_id:integer
+
+cake bake migration CreateManuPecas ativo:string[1] created modified manutencao_id:integer peca_id:integer
+
+cake migrations migrate
+
+cake bake model Users
+cake bake model Autenticacaos
+cake bake model Servicos
+cake bake model Fornecedors
+cake bake model Pecas
+cake bake model Fabricantes
+cake bake model Tipos
+cake bake model Veiculos
+cake bake model Manutencaos
+cake bake model ManuPecas
+
+cd tads5
+
+composer require cakephp/authentication
+
+Endpoints
+
+- PagesController
+    /getUsers
+    /login
+
+- AdicionasController
+    /addUser
+
+Disponibilizar localhost para aplicações
+
+bin/cake server -H 0.0.0.0
